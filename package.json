@@ -7,7 +7,8 @@
     "lint": "./node_modules/.bin/eslint src",
     "start": "nodemon --exec ./node_modules/babel-cli/bin/babel-node.js src/index.js",
     "clean": "rm -rf ./build",
-    "build": "rm -rf ./build && gulp"
+    "build": "rm -rf ./build && gulp",
+    "detach-git": "echo 'To add a new repository use: \"git remote add origin [remote address]\"' && git remote rm origin"
   },
   "author": "Eric Marshall",
   "license": "MIT",
