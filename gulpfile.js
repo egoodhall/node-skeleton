@@ -1,28 +1,34 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
-var json = require('gulp-json-editor');
+var clean = require('gulp-clean')
 var deleteLines = require('gulp-delete-lines');
+var json = require('gulp-json-editor');
+var path = require('path');
+
+// Build directory
+const buildDir = path.join('.', 'build');
+
+gulp.task('default', ['clean', 'build']);
+
+// Clean the build directory
+gulp.task('clean', () => {
+  return gulp.src(buildDir).pipe(clean({ force: true }));
+});
 
 // Compile babel and move files to build directory
-gulp.task('default', function () {
-  // Setup scripts for GAE deployment
+gulp.task('build', function () {
+  // Setup scripts deployment
   gulp.src('package.json').pipe(json((json) => {
+    // Remove development scripts
     delete json.scripts.build;
     delete json.scripts.clean;
     delete json.scripts.lint;
     delete json.devDependencies;
-    json.scripts.deploy = 'gcloud app deploy';
+    // Scripts for production build
     json.scripts.start  = 'node app.js';
-    json.scripts.test   = 'node test.js';
     return json;
-  })).pipe(gulp.dest('build'));
+  })).pipe(gulp.dest(buildDir));
 
-  // disable GraphiQL
-  gulp.src('src/**/*.js').pipe(deleteLines({
-    filters: [ /.+\/graphiql.+/ ]
-  })).pipe(babel()).pipe(gulp.dest('build'));
-
-  gulp.src('app.yaml').pipe(gulp.dest('build'));
-  gulp.src('src/**/*.json').pipe(gulp.dest('build'));
-  gulp.src('src/**/*.gql').pipe(gulp.dest('build'));
+  gulp.src('src/**/*.json').pipe(gulp.dest(buildDir));
+  gulp.src('src/**/*.js').pipe(gulp.dest(buildDir));
 });

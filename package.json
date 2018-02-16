@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint src",
-    "start": "nodemon --exec ./node_modules/babel-cli/bin/babel-node.js src/index.js",
-    "clean": "rm -rf ./build",
-    "build": "rm -rf ./build && gulp",
+    "start": "nodemon src/index.js",
+    "clean": "gulp clean",
+    "build": "gulp build",
     "detach-git": "echo 'To add a new repository use: \"git remote add origin [remote address]\"' && git remote rm origin"
   },
   "author": "Eric Marshall",
@@ -20,6 +20,7 @@
     "eslint": "^3.19.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
+    "gulp-clean": "^0.4.0",
     "gulp-delete-lines": "^0.0.7",
     "gulp-json-editor": "^2.2.1",
     "nodemon": "^1.11.0"
