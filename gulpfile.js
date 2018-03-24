@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
-var clean = require('gulp-clean')
-var deleteLines = require('gulp-delete-lines');
+var clean = require('gulp-clean');
 var json = require('gulp-json-editor');
 var path = require('path');
 
@@ -16,19 +15,19 @@ gulp.task('clean', () => {
 });
 
 // Compile babel and move files to build directory
-gulp.task('build', function () {
+gulp.task('build', () => {
   // Setup scripts deployment
-  gulp.src('package.json').pipe(json((json) => {
+  gulp.src('package.json').pipe(json((cfg) => {
     // Remove development scripts
-    delete json.scripts.build;
-    delete json.scripts.clean;
-    delete json.scripts.lint;
-    delete json.devDependencies;
+    delete cfg.scripts.build;
+    delete cfg.scripts.clean;
+    delete cfg.scripts.lint;
+    delete cfg.devDependencies;
     // Scripts for production build
-    json.scripts.start  = 'node app.js';
+    json.scripts.start = 'node index.js';
     return json;
   })).pipe(gulp.dest(buildDir));
 
   gulp.src('src/**/*.json').pipe(gulp.dest(buildDir));
-  gulp.src('src/**/*.js').pipe(gulp.dest(buildDir));
+  gulp.src('src/**/*.js').pipe(babel()).pipe(gulp.dest(buildDir));
 });

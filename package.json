@@ -8,16 +8,18 @@
     "start": "nodemon src/index.js",
     "clean": "gulp clean",
     "build": "gulp build",
-    "detach-git": "echo 'To add a new repository use: \"git remote add origin [remote address]\"' && git remote rm origin"
+    "detach-git": "git remote rm origin && echo 'To add a new remote, use: \"git remote add origin [remote address]\"'"
   },
   "author": "Eric Marshall",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.5"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.19.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-clean": "^0.4.0",
