@@ -18,16 +18,20 @@ gulp.task('clean', () => {
 gulp.task('build', () => {
   // Setup scripts deployment
   gulp.src('package.json').pipe(json((cfg) => {
+
     // Remove development scripts
     delete cfg.scripts.build;
     delete cfg.scripts.clean;
     delete cfg.scripts.lint;
+    delete cfg.scripts['detach-git'];
     delete cfg.devDependencies;
+    
     // Scripts for production build
-    json.scripts.start = 'node index.js';
-    return json;
+    cfg.scripts.start = 'node index.js';
+    return cfg;
   })).pipe(gulp.dest(buildDir));
 
+  // Pipe files to build directory
   gulp.src('src/**/*.json').pipe(gulp.dest(buildDir));
   gulp.src('src/**/*.js').pipe(babel()).pipe(gulp.dest(buildDir));
 });

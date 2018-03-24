@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint src",
-    "start": "nodemon src/index.js",
-    "clean": "gulp clean",
-    "build": "gulp build",
+    "start": "./node_modules/nodemon/bin/nodemon.js -d . --exec 'node src/index.js'",
+    "clean": "./node_modules/gulp/bin/gulp.js clean",
+    "build": "./node_modules/gulp/bin/gulp.js build",
     "detach-git": "git remote rm origin && echo 'To add a new remote, use: \"git remote add origin [remote address]\"'"
   },
   "author": "Eric Marshall",
